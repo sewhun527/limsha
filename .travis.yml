@@ -1,0 +1,31 @@
+sudo: required
+
+language: java
+jdk:
+ - openjdk8
+ 
+services:
+  - docker
+ 
+before_install:
+  - chmod +x mvnw
+  
+script: ./mvnw clean install 
+
+deploy:
+  prider: elasticbeanstalk
+  skip_cleanup: true
+  region: us-east-2
+  app: springboot-gtd-alpha
+  env: SpringbootGtdAlpha-env
+  zip_file: 'target/springboot-gtd-alpha-0.0.1-SNAPSHOT.jar'
+  bucket_name: elasticbeanstalk-us-east-2-013680074235
+  bucket_path: springboot-gtd-alpha
+  on:
+   branch: main
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+
+ 
+
+ 
